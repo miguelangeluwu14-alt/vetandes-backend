@@ -1,0 +1,1190 @@
+{
+  "info": {
+    "_postman_id": "6b72f099-846e-4b8b-973a-d3810f30b3ee",
+    "name": "VetAndes API - Backend - Examen Parcial II B",
+    "description": "Ejemplos de contrato, roles y codigos HTTP. Ejecutar contra Oracle local.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58326042",
+    "_collection_link": "https://go.postman.co/collection/58326042-6b72f099-846e-4b8b-973a-d3810f30b3ee?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "00 Login admin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "if(pm.response.code===200){pm.collectionVariables.set('token',pm.response.json().token);pm.collectionVariables.set('tokenAdmin',pm.response.json().token)}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"Vet2026*\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "01 Login recepcion",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "if(pm.response.code===200){pm.collectionVariables.set('tokenRecepcion',pm.response.json().token)}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"recepcion\",\n  \"password\": \"Vet2026*\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 Login veterinario",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "if(pm.response.code===200){pm.collectionVariables.set('tokenVeterinario',pm.response.json().token)}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"veterinario\",\n  \"password\": \"Vet2026*\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03 Login inactivo - 401",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 401', () => pm.response.to.have.status(401));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"inactivo\",\n  \"password\": \"Vet2026*\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "04 Usuario actual - 200",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/auth/me",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05 Propietarios - 200",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/propietarios",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "propietarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "06 Prestaciones - 200",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/prestaciones",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "prestaciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07 Prestaciones filtradas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/prestaciones?especie=PERRO",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "prestaciones"
+          ],
+          "query": [
+            {
+              "key": "especie",
+              "value": "PERRO"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "08 Prestacion crear - 201",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 201', () => pm.response.to.have.status(201));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"PRS-010\",\n  \"nombre\": \"Consulta nutricional\",\n  \"precio\": 40.0,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/prestaciones",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "prestaciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "09 Prestacion duplicada - 409",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 409', () => pm.response.to.have.status(409));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"PRS-001\",\n  \"nombre\": \"Consulta general duplicada\",\n  \"precio\": 35,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/prestaciones",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "prestaciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10 Prestacion valida error - 400",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"MAL\",\n  \"nombre\": \"X\",\n  \"precio\": 0,\n  \"especieAplicable\": \"VACUNO\",\n  \"activo\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/prestaciones",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "prestaciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11 Prestacion no encontrada - 404",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 404', () => pm.response.to.have.status(404));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/prestaciones/999999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "prestaciones",
+            "999999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12 Prestacion PATCH estado",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activo\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/prestaciones/1/estado",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "prestaciones",
+            "1",
+            "estado"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13 Prestacion restaurar estado",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activo\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/prestaciones/1/estado",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "prestaciones",
+            "1",
+            "estado"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "14 Mascotas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/mascotas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "mascotas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "15 Mascotas por propietario",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/mascotas?propietarioId=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "mascotas"
+          ],
+          "query": [
+            {
+              "key": "propietarioId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "16 Mascota crear - 201",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 201', () => pm.response.to.have.status(201));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Pelusa\",\n  \"especie\": \"GATO\",\n  \"raza\": \"Mestiza\",\n  \"fechaNacimiento\": \"2024-05-12\",\n  \"sexo\": \"H\",\n  \"propietarioId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/mascotas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "mascotas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "17 Mascota repetida - 409",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 409', () => pm.response.to.have.status(409));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Luna\",\n  \"especie\": \"PERRO\",\n  \"fechaNacimiento\": \"2023-04-12\",\n  \"sexo\": \"H\",\n  \"propietarioId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/mascotas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "mascotas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "18 Mascota propietario inexistente - 404",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 404', () => pm.response.to.have.status(404));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Externo\",\n  \"especie\": \"PERRO\",\n  \"fechaNacimiento\": \"2023-04-12\",\n  \"sexo\": \"M\",\n  \"propietarioId\": 99999\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/mascotas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "mascotas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "19 Atencion correcta con descuento - 201",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 201', () => pm.response.to.have.status(201));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mascotaId\": 1,\n  \"peso\": 12.5,\n  \"diagnostico\": \"Revisión preventiva\",\n  \"detalles\": [\n    {\n      \"prestacionId\": 1,\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": 4,\n      \"cantidad\": 1\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/atenciones",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "atenciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "20 Atencion rollback tercer detalle - 409",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 409', () => pm.response.to.have.status(409));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mascotaId\": 1,\n  \"peso\": 12.5,\n  \"diagnostico\": \"Prueba rollback\",\n  \"detalles\": [\n    {\n      \"prestacionId\": 1,\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": 2,\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": 3,\n      \"cantidad\": 1\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/atenciones",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "atenciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "21 Atenciones filtradas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/atenciones?mascota=luna&especie=PERRO&estado=REGISTRADA",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "atenciones"
+          ],
+          "query": [
+            {
+              "key": "mascota",
+              "value": "luna"
+            },
+            {
+              "key": "especie",
+              "value": "PERRO"
+            },
+            {
+              "key": "estado",
+              "value": "REGISTRADA"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "22 Atencion consultar",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/atenciones/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "atenciones",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "23 Anular atencion",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"motivo\": \"Solicitud del propietario por cambio de horario\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/atenciones/1/anular",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "atenciones",
+            "1",
+            "anular"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "24 Reporte agregado",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reportes/atenciones-por-especie",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reportes",
+            "atenciones-por-especie"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "25 Reporte con fecha",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reportes/atenciones-por-especie?desde=2026-01-01&hasta=2026-12-31",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reportes",
+            "atenciones-por-especie"
+          ],
+          "query": [
+            {
+              "key": "desde",
+              "value": "2026-01-01"
+            },
+            {
+              "key": "hasta",
+              "value": "2026-12-31"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "26 401 sin token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 401', () => pm.response.to.have.status(401));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/mascotas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "mascotas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "27 401 token alterado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 401', () => pm.response.to.have.status(401));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_1228}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/mascotas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "mascotas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "28 403 recepcion intenta anular",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenRecepcion}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"motivo\": \"Anulación de prueba no autorizada\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/atenciones/1/anular",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "atenciones",
+            "1",
+            "anular"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "29 403 veterinario intenta registrar mascota",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenVeterinario}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Imposible\",\n  \"especie\": \"GATO\",\n  \"fechaNacimiento\": \"2020-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/mascotas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "mascotas"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api/v1"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "adminToken",
+      "value": ""
+    },
+    {
+      "key": "idPrestacion",
+      "value": "1"
+    },
+    {
+      "key": "idMascota",
+      "value": "1"
+    },
+    {
+      "key": "idAtencion",
+      "value": "1"
+    },
+    {
+      "key": "tokenAdmin",
+      "value": ""
+    },
+    {
+      "key": "tokenRecepcion",
+      "value": ""
+    },
+    {
+      "key": "tokenVeterinario",
+      "value": ""
+    },
+    {
+      "key": "bearer_token_1228",
+      "secret": true
+    }
+  ]
+}
